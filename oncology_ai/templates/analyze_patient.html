@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analyze Patient</title>
+    {% load static %}  <!-- Load the static files template tag library -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <h1>Analyze Patient Page</h1>
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <label for="pathology_report">Pathology Report:</label><br>
+        <textarea name="pathology_report" rows="4" cols="50" required></textarea><br>
+
+        <label for="radiology_image">Upload Radiology Image (DICOM):</label><br>
+        <input type="file" name="radiology_image" accept=".dcm" required><br>
+
+        <button type="submit">Analyze</button>
+    </form>
+
+    {% if analysis_result %}
+        <div class="analysis-result">
+            <h2>Analysis Result:</h2>
+            <p>{{ analysis_result }}</p>
+        </div>
+    {% endif %}
+</body>
+</html>
